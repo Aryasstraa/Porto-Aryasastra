@@ -9,11 +9,11 @@ const Contact = () => {
   const onSubmit = async (event) => {
     event.preventDefault();
     setResult("Mengirim...");
-    
+
     const formData = new FormData(event.target);
 
-    // TODO: Masukkan Access Key dari Web3Forms di sini!
-    formData.append("access_key", "YOUR_ACCESS_KEY_HERE");
+    // Web3Forms Access Key
+    formData.append("access_key", "fbacd598-c938-493f-b71a-8e318b20da3b");
 
     try {
       const response = await fetch("https://api.web3forms.com/submit", {
@@ -27,7 +27,7 @@ const Contact = () => {
         setResult("Terkirim! ✅");
         setStatus("success");
         event.target.reset(); // Kosongkan form setelah berhasil
-        
+
         // Kembalikan teks tombol setelah 3 detik
         setTimeout(() => {
           setResult("Kirim Sekarang →");
@@ -57,12 +57,12 @@ const Contact = () => {
 
           <div className="contact-direct" style={{ marginTop: '24px' }}>
             <p style={{ fontWeight: 700, marginBottom: '12px', display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <FaEnvelope size={18} color="var(--primary)" /> 
+              <FaEnvelope size={18} color="var(--primary)" />
               <span>Email : </span>
               <a href="mailto:putuagusarya2004@gmail.com" style={{ color: 'var(--primary)', textDecoration: 'none' }}>putuagusarya2004@gmail.com</a>
             </p>
             <p style={{ fontWeight: 700, display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <FaGithub size={18} color="var(--primary)" /> 
+              <FaGithub size={18} color="var(--primary)" />
               <span>GitHub : </span>
               <a href="https://github.com/Aryasstraa" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--primary)', textDecoration: 'none' }}>Aryasstraa</a>
             </p>
@@ -74,7 +74,7 @@ const Contact = () => {
           <form onSubmit={onSubmit}>
             {/* Subject rahasia untuk email Anda */}
             <input type="hidden" name="subject" value="Pesan Baru dari Portofolio Anda!" />
-            
+
             <div className="form-group">
               <label htmlFor="contact-name">Nama</label>
               <input id="contact-name" name="name" type="text" className="neo-input" placeholder="Nama lengkap Anda" required />
@@ -87,12 +87,12 @@ const Contact = () => {
               <label htmlFor="contact-message">Pesan</label>
               <textarea id="contact-message" name="message" className="neo-input" rows="4" placeholder="Tulis pesan Anda di sini..." required></textarea>
             </div>
-            <button 
-              type="submit" 
-              className="neo-button" 
-              style={{ 
-                width: '100%', 
-                backgroundColor: status === 'success' ? '#22c55e' : status === 'error' ? '#ef4444' : '' 
+            <button
+              type="submit"
+              className="neo-button"
+              style={{
+                width: '100%',
+                backgroundColor: status === 'success' ? '#22c55e' : status === 'error' ? '#ef4444' : ''
               }}
               disabled={result === "Mengirim..."}
             >
