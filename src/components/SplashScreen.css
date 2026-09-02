@@ -1,0 +1,222 @@
+/* ================================================
+   SPLASH SCREEN — vertical curtain reveal
+================================================ */
+
+.splash {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  overflow: hidden;
+}
+
+/* ─────────────────────────────────────────────
+   LAYER 1 — Blue landing (z: 1)
+───────────────────────────────────────────── */
+.splash-content {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  background-color: #2497F3;
+  transition: opacity 0.35s ease;
+}
+
+.phase-welcome .splash-content,
+.phase-lifting .splash-content {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ─────────────────────────────────────────────
+   LAYER 2 — Dark welcome overlay (z: 10)
+───────────────────────────────────────────── */
+.welcome-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  background-color: #111827;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease;
+}
+
+.phase-welcome .welcome-overlay {
+  opacity: 1;
+}
+
+/* Overlay disappears instantly when curtains snap into place */
+.phase-curtains-snap .welcome-overlay,
+.phase-lifting .welcome-overlay {
+  opacity: 0;
+  transition: none;
+}
+
+/* WELCOME text */
+.welcome-text {
+  font-family: 'Funnel Display', sans-serif;
+  font-size: clamp(3.5rem, 10vw, 8rem);
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: 8px;
+  text-transform: uppercase;
+  transform: rotate(-5deg);
+  text-shadow:
+    4px 4px 0 #2497F3,
+    8px 8px 0 #FF4500;
+  opacity: 0;
+  animation: none;
+}
+
+.phase-welcome .welcome-text {
+  animation: welcomePop 0.7s 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+@keyframes welcomePop {
+  from { opacity: 0; transform: rotate(-5deg) scale(0.6); }
+  to   { opacity: 1; transform: rotate(-5deg) scale(1); }
+}
+
+/* ─────────────────────────────────────────────
+   LAYER 3 — Vertical curtain stripes (z: 20)
+
+   idle           → translateY(-105%)  hidden above screen
+   welcome        → translateY(-105%)  still hidden (overlay handles dark)
+   curtains-snap  → translateY(0)      snap to cover, NO transition
+   lifting        → translateY(-105%)  fly upward with stagger
+───────────────────────────────────────────── */
+.curtains {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  display: flex;
+  pointer-events: none;
+}
+
+.curtain-stripe {
+  flex: 1;
+  height: 100%;
+  background-color: #111827;
+}
+
+/* IDLE & WELCOME: completely hidden above viewport */
+.phase-idle .curtain-stripe,
+.phase-welcome .curtain-stripe {
+  transform: translateY(-105%);
+  transition: none;
+}
+
+/* CURTAINS-SNAP: instantly cover screen, zero animation */
+.phase-curtains-snap .curtain-stripe {
+  transform: translateY(0);
+  transition: none;
+}
+
+/* LIFTING: fly upward with staggered delay per stripe */
+.phase-lifting .curtain-stripe {
+  transform: translateY(-105%);
+  transition: transform 0.9s cubic-bezier(0.76, 0, 0.24, 1)
+    calc(var(--i) * 70ms);
+}
+
+/* ─────────────────────────────────────────────
+   NAME CARD
+───────────────────────────────────────────── */
+.splash-card {
+  background: #ffffff;
+  border: 4px solid #111827;
+  box-shadow: 10px 10px 0 #111827;
+  padding: 32px 60px;
+  text-align: center;
+  transform: rotate(-1.5deg);
+  animation: cardFloat 3.5s ease-in-out infinite;
+}
+
+@keyframes cardFloat {
+  0%, 100% { transform: rotate(-1.5deg) translateY(0px); }
+  50%       { transform: rotate(-1.5deg) translateY(-12px); }
+}
+
+.splash-name {
+  font-family: 'Funnel Display', sans-serif;
+  font-size: clamp(2rem, 6vw, 4.5rem);
+  font-weight: 800;
+  color: #111827;
+  letter-spacing: -2px;
+  line-height: 1;
+  margin: 0 0 8px;
+}
+
+.splash-sub {
+  font-family: 'Funnel Display', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 4px;
+  color: #4B5563;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+/* ─────────────────────────────────────────────
+   ENTER BUTTON
+───────────────────────────────────────────── */
+.splash-btn {
+  font-family: 'Funnel Display', sans-serif;
+  font-size: 1.2rem;
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: #111827;
+  background: #85C8FA;
+  border: 4px solid #111827;
+  box-shadow: 8px 8px 0 #111827;
+  padding: 16px 52px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
+  animation: btnPulse 2.5s ease-in-out infinite;
+}
+
+@keyframes btnPulse {
+  0%, 100% { box-shadow: 8px 8px 0 #111827; }
+  50%       { box-shadow: 12px 12px 0 #111827; }
+}
+
+.splash-btn:hover {
+  background-color: #ffffff;
+  transform: translate(-4px, -4px);
+  box-shadow: 12px 12px 0 #111827;
+  animation: none;
+}
+
+.splash-btn:active {
+  transform: translate(4px, 4px);
+  box-shadow: 2px 2px 0 #111827;
+}
+
+/* ─────────────────────────────────────────────
+   STICKERS
+───────────────────────────────────────────── */
+.sticker {
+  position: absolute;
+  font-size: 4rem;
+  user-select: none;
+  animation: stickerBob 4s ease-in-out infinite;
+  filter: drop-shadow(3px 4px 0 rgba(0,0,0,0.2));
+  z-index: 2;
+}
+
+.sticker-tl { top: 12%;    left: 8%;   animation-delay: 0s;   animation-duration: 3.5s; }
+.sticker-tr { top: 10%;    right: 8%;  animation-delay: 0.8s; animation-duration: 4.2s; font-size: 3.5rem; }
+.sticker-bl { bottom: 14%; left: 6%;   animation-delay: 0.4s; animation-duration: 4.8s; font-size: 3rem; }
+.sticker-br { bottom: 12%; right: 7%;  animation-delay: 1.2s; animation-duration: 3.8s; font-size: 4.5rem; }
+
+@keyframes stickerBob {
+  0%, 100% { transform: translateY(0)     rotate(-5deg); }
+  50%       { transform: translateY(-14px) rotate(5deg); }
+}

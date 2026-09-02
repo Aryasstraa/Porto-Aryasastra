@@ -1,0 +1,83 @@
+.tech-section {
+  padding: 80px 0 60px;
+  background-color: var(--bg-color); /* Same as the body background */
+  overflow: hidden;
+  border-bottom: 3px solid #111827;
+}
+
+.tech-marquee {
+  display: flex;
+  overflow: hidden;
+  user-select: none;
+  /* Subtle edge fade to make it look clean as icons enter/leave */
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
+}
+
+.tech-track {
+  display: flex;
+  align-items: center;
+  gap: 70px; /* Plenty of space between items */
+  padding: 20px 0;
+  white-space: nowrap;
+  animation: scroll-tech 35s linear infinite; /* Slower, smooth scroll */
+  width: max-content;
+}
+
+/* Pause animation on hover */
+.tech-marquee:hover .tech-track {
+  animation-play-state: paused;
+}
+
+@keyframes scroll-tech {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-20%); } /* We duplicated 5 times, so 1/5th is exactly one loop */
+}
+
+.tech-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  color: #111827;
+  cursor: default;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.tech-item:hover {
+  transform: translateY(-6px);
+  color: var(--primary); /* Subtle highlight on hover */
+}
+
+.tech-icon {
+  font-size: 2.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tech-name {
+  font-size: 0.9rem;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .tech-section {
+    padding: 60px 0 40px;
+  }
+  
+  .tech-track {
+    gap: 40px;
+  }
+  
+  .tech-icon {
+    font-size: 2.2rem;
+  }
+  
+  .tech-name {
+    font-size: 0.8rem;
+  }
+}

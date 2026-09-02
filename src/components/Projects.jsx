@@ -1,0 +1,88 @@
+import React from 'react';
+import { FaExternalLinkAlt, FaGithub } from 'react-icons/fa';
+import './Projects.css';
+
+const projects = [
+  {
+    id: 1,
+    title: 'Aplikasi Tata Surya Edukatif (AR)',
+    category: 'Proyek Interaktif & AR (Skripsi)',
+    image: '/TataSurya.jpeg',
+    description: 'Aplikasi edukasi pengenalan tata surya interaktif yang dibangun menggunakan teknologi Augmented Reality.',
+    tech: ['Unity', 'Vuforia', 'C#'],
+    link: 'https://drive.google.com/drive/folders/1t9pq5k_axAVkJRxhd28CFvRWEGeFXPrW?usp=sharing',
+    github: '#',
+  },
+  {
+    id: 2,
+    title: 'Microtools - Utilitas Online',
+    category: 'Proyek Mandiri',
+    image: '/microtools.png',
+    description: 'Platform alat bantu online untuk konversi file (seperti PNG ke PDF) dan utilitas ringan lainnya untuk produktivitas.',
+    tech: ['Laravel', 'PHP', 'TailwindCSS'],
+    link: 'https://microtools.my.id',
+    github: '#',
+  },
+  {
+    id: 3,
+    title: 'Academic Microtools',
+    category: 'Proyek Mandiri',
+    image: '/academic.png',
+    description: 'Website utilitas khusus mahasiswa yang membantu menghitung skor SUS, kalkulasi IPK, dan analisis data akademis.',
+    tech: ['Laravel', 'MySQL', 'JavaScript'],
+    link: 'https://academic.microtools.my.id',
+    github: '#',
+  }
+];
+
+const Projects = () => {
+  return (
+    <section className="section bg-alt projects-section" id="projects">
+      <div className="container">
+        <div className="section-header text-center" data-reveal="up">
+          <span className="section-label">Portofolio</span>
+          <h2 className="section-title">Proyek Unggulan</h2>
+        </div>
+      </div>
+
+      {/* Carousel wrapper — hover pauses animation via CSS */}
+      <div className="carousel-wrapper" data-reveal="fade" data-delay="100">
+        <div className="carousel-track reveal stagger">
+          {/* Duplicate for seamless infinite loop */}
+          {[...projects, ...projects, ...projects].map((project, idx) => (
+            <div className="project-card neo-card" key={`${project.id}-${idx}`}>
+              <div className="project-image-wrapper">
+                <img src={project.image} alt={project.title} className="project-image" />
+                <span className="project-category neo-badge">{project.category}</span>
+              </div>
+
+              <div className="project-content">
+                <h3 className="project-title">{project.title}</h3>
+                <p className="project-desc">{project.description}</p>
+
+                <div className="project-tech">
+                  {project.tech.map((t, i) => (
+                    <span className="tech-tag" key={i}>#{t}</span>
+                  ))}
+                </div>
+
+                <div className="project-links">
+                  <a href={project.link} className="neo-button secondary" target="_blank" rel="noopener noreferrer">
+                    <FaExternalLinkAlt size={13} /> Demo
+                  </a>
+                  {project.github !== '#' && (
+                    <a href={project.github} className="neo-button secondary" target="_blank" rel="noopener noreferrer">
+                      <FaGithub size={13} /> Kode
+                    </a>
+                  )}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default Projects;

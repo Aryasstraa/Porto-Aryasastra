@@ -1,0 +1,253 @@
+.hero {
+  min-height: calc(100vh - 70px);
+  display: flex;
+  align-items: center;
+  background-color: var(--bg-color);
+  background-image:
+    linear-gradient(rgba(36, 151, 243, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(36, 151, 243, 0.08) 1px, transparent 1px);
+  background-size: 44px 44px;
+  position: relative;
+  overflow: visible;
+  padding: 20px 0; /* Reduced padding to move content up and show buttons */
+}
+
+/* Radial fade so center text area stays clean */
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse 70% 80% at 35% 50%,
+    rgba(240, 247, 255, 0.92) 0%,
+    rgba(240, 247, 255, 0.6) 55%,
+    transparent 100%
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+.hero-container {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 60px;
+  align-items: center;
+}
+
+/* Hero Content */
+.hero-content {
+  z-index: 1;
+  animation: heroFadeIn 0.8s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background-color: var(--dark);
+  color: white;
+  margin-bottom: 24px;
+  font-size: 0.85rem;
+}
+
+.pulse-dot {
+  width: 10px;
+  height: 10px;
+  background-color: #22c55e;
+  border-radius: 50%;
+  position: relative;
+  display: inline-block;
+}
+
+.pulse-dot::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #22c55e;
+  border-radius: 50%;
+  animation: pulse-ring 2.5s ease-out infinite;
+}
+
+@keyframes pulse-ring {
+  0% { transform: scale(1); opacity: 0.6; }
+  100% { transform: scale(2.8); opacity: 0; }
+}
+
+
+.hero-title {
+  font-size: clamp(2.4rem, 5vw, 4rem);
+  font-weight: 800;
+  color: var(--text);
+  letter-spacing: -2px;
+  margin-bottom: 20px;
+  line-height: 1.1;
+}
+
+.hero-subtitle {
+  font-size: 1.1rem;
+  line-height: 1.7;
+  color: var(--text-muted);
+  margin-bottom: 40px;
+  max-width: 520px;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+/* Hero Image */
+.hero-image-wrapper {
+  background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%);
+  height: 380px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: rotate(2deg);
+  border-radius: var(--radius);
+  border: var(--border-width) solid var(--border);
+  box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--shadow-color);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-image-wrapper:hover {
+  transform: rotate(2deg) translate(-3px, -3px);
+  box-shadow: calc(var(--shadow-offset) + 3px) calc(var(--shadow-offset) + 3px) 0 var(--shadow-color);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* ── Profile photo card ── */
+.hero-photo-card {
+  width: 100%;
+  height: 100%;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 4px solid var(--border);
+  position: relative;
+  /* Subtle continuous floating — GPU-only */
+  animation: photoFloat 6s ease-in-out infinite;
+  will-change: transform;
+}
+
+/* Shine sweep overlay */
+.hero-photo-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    120deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.28) 50%,
+    transparent 70%
+  );
+  background-size: 200% 100%;
+  background-position: -100% 0;
+  transition: background-position 0.7s ease;
+  pointer-events: none;
+  z-index: 2;
+  border-radius: 12px;
+}
+
+.hero-image-wrapper:hover .hero-photo-card::after {
+  background-position: 200% 0;  /* sweep shine across */
+}
+
+.hero-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+  transition: transform 0.4s ease;
+  will-change: transform;
+}
+
+.hero-image-wrapper:hover .hero-photo {
+  transform: scale(1.04);
+}
+
+/* Floating animation */
+@keyframes photoFloat {
+  0%,  100% { transform: translateY(0px); }
+  50%        { transform: translateY(-6px); }
+}
+
+/* Subtle glow on the wrapper */
+.hero-image-wrapper {
+  will-change: box-shadow;
+}
+
+/* Keyframes */
+@keyframes heroFadeIn {
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes heroSlideIn {
+  from { opacity: 0; transform: rotate(2deg) translateX(40px); }
+  to   { opacity: 1; transform: rotate(2deg) translateX(0); }
+}
+
+/* ── Responsive ── */
+@media (max-width: 992px) {
+  .hero-container {
+    grid-template-columns: 1fr;
+    text-align: center;
+    gap: 40px;
+  }
+
+  .hero-badge {
+    display: inline-block;
+  }
+
+  .hero-subtitle {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .hero-actions {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .hero-image-wrapper {
+    max-width: 340px;
+    height: 300px;
+    margin: 0 auto;
+    transform: rotate(0);
+    animation: heroFadeIn 0.9s 0.2s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+  }
+
+  .hero-image-wrapper:hover {
+    transform: translate(-3px, -3px);
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-title {
+    font-size: 2rem;
+    letter-spacing: -1px;
+  }
+
+  .hero-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .hero-actions .neo-button {
+    text-align: center;
+    width: 100%;
+  }
+
+  .hero-image-wrapper {
+    max-width: 280px;
+    height: 260px;
+  }
+}

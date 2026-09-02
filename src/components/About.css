@@ -1,0 +1,84 @@
+.about-section {
+  padding-bottom: 60px;
+}
+
+.about-container {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.about-bio {
+  padding: 40px;
+}
+
+.bio-text {
+  font-size: 1.15rem;
+  line-height: 1.7;
+  color: var(--dark);
+  margin-bottom: 30px;
+}
+
+.tools-title {
+  font-size: 1.1rem;
+  font-weight: 800;
+  margin-bottom: 15px;
+}
+
+.tools-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.about-edu {
+  margin-top: 20px;
+}
+
+.edu-title {
+  font-size: 1.5rem;
+  font-weight: 800;
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.edu-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+}
+
+.edu-card {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.edu-level {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: var(--primary);
+}
+
+.edu-school {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.edu-period {
+  font-size: 0.9rem;
+  color: #6b7280;
+  font-weight: 700;
+}
+
+@media (max-width: 768px) {
+  .about-bio {
+    padding: 24px;
+  }
+  .bio-text {
+    font-size: 1rem;
+  }
+}

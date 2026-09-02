@@ -1,0 +1,310 @@
+:root {
+  /* Color Palette - Blue Theme (from user image) */
+  --bg-color: #F0F7FF;       /* Very light blue-white */
+  --primary: #2497F3;         /* Medium blue */
+  --secondary: #85C8FA;       /* Light blue */
+  --dark: #063C9E;            /* Deep navy */
+  --accent: #1a6fc9;          /* Mid-dark blue */
+  --text: #111827;            /* Near black */
+  --text-muted: #4B5563;      /* Gray */
+  --border: #111827;
+  --white: #FFFFFF;
+  --card-bg: #FFFFFF;
+  --section-alt: #E0F0FF;     /* Slightly tinted blue white */
+
+  /* Neobrutalism Config */
+  --border-width: 3px;
+  --shadow-color: #111827;
+  --shadow-offset: 6px;
+  --shadow-offset-sm: 4px;
+  --radius: 8px;
+  --radius-sm: 4px;
+
+  --font-family: 'Funnel Display', sans-serif;
+}
+
+/* ========================
+   RESET & BASE
+======================== */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-family);
+  background-color: var(--bg-color);
+  color: var(--text);
+  line-height: 1.65;
+  overflow-x: hidden;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* ========================
+   TYPOGRAPHY
+======================== */
+h1 { font-size: clamp(2.2rem, 5vw, 4rem); font-weight: 800; letter-spacing: -1.5px; line-height: 1.1; }
+h2 { font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 800; letter-spacing: -1px; line-height: 1.15; }
+h3 { font-size: 1.4rem; font-weight: 700; line-height: 1.3; }
+h4 { font-size: 1.1rem; font-weight: 700; }
+p  { font-size: 1.05rem; color: var(--text-muted); }
+
+/* ========================
+   LAYOUT UTILITIES
+======================== */
+.container {
+  width: 100%;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.section {
+  padding: 90px 0;
+}
+
+.section-header {
+  margin-bottom: 50px;
+}
+
+.section-label {
+  display: inline-block;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--primary);
+  margin-bottom: 12px;
+}
+
+.section-title {
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  font-weight: 800;
+  letter-spacing: -1px;
+}
+
+.text-center { text-align: center; }
+.text-primary { color: var(--primary); }
+.text-white { color: var(--white); }
+.bg-alt { background-color: var(--section-alt); }
+.bg-dark { background-color: var(--dark); }
+
+/* ========================
+   SCROLL REVEAL ANIMATIONS
+======================== */
+
+/* Base hidden state — elements with [data-reveal] start hidden */
+[data-reveal] {
+  opacity: 0;
+  will-change: opacity, transform;
+  transition: opacity 0.55s ease, transform 0.55s ease;
+}
+
+/* Revealed state — added by IntersectionObserver */
+[data-reveal].is-visible {
+  opacity: 1;
+  transform: none !important;
+}
+
+/* Directions */
+[data-reveal="up"]    { transform: translateY(40px); }
+[data-reveal="down"]  { transform: translateY(-30px); }
+[data-reveal="left"]  { transform: translateX(-50px); }
+[data-reveal="right"] { transform: translateX(50px); }
+[data-reveal="fade"]  { transform: translateY(0); }
+[data-reveal="zoom"]  { transform: scale(0.92); }
+
+/* Respect user motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal] { opacity: 1 !important; transform: none !important; transition: none; }
+}
+
+/* ========================
+   NEOBRUTALISM COMPONENTS
+======================== */
+
+/* --- Card --- */
+.neo-card {
+  background: var(--card-bg);
+  border: var(--border-width) solid var(--border);
+  box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--shadow-color);
+  border-radius: var(--radius);
+  padding: 28px;
+  transition: transform 0.15s ease-out, box-shadow 0.15s ease-out;
+  will-change: transform;
+}
+
+.neo-card:hover {
+  transform: translate(-3px, -3px);
+  box-shadow: calc(var(--shadow-offset) + 3px) calc(var(--shadow-offset) + 3px) 0 var(--shadow-color);
+}
+
+/* Cert & Training card tilt overrides (higher specificity) */
+.neo-card.cert-card:not(.training-card):hover {
+  transform: translate(-4px, -4px) rotate(-1.5deg);
+  box-shadow: 8px 8px 0 var(--secondary);
+}
+
+.neo-card.training-card:hover {
+  transform: translate(-4px, -4px) rotate(1.5deg);
+  box-shadow: 8px 8px 0 var(--primary);
+}
+
+/* --- Button --- */
+.neo-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background-color: var(--primary);
+  color: var(--white);
+  font-family: var(--font-family);
+  font-weight: 700;
+  font-size: 1rem;
+  padding: 13px 26px;
+  border: var(--border-width) solid var(--border);
+  box-shadow: var(--shadow-offset-sm) var(--shadow-offset-sm) 0 var(--shadow-color);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
+  white-space: nowrap;
+}
+
+.neo-button:hover {
+  background-color: var(--dark);
+  transform: translate(-2px, -2px);
+  box-shadow: calc(var(--shadow-offset-sm) + 2px) calc(var(--shadow-offset-sm) + 2px) 0 var(--shadow-color);
+}
+
+.neo-button:active {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0 var(--shadow-color);
+}
+
+.neo-button.secondary {
+  background-color: var(--white);
+  color: var(--text);
+}
+
+.neo-button.secondary:hover {
+  background-color: var(--secondary);
+}
+
+.neo-button.dark {
+  background-color: var(--dark);
+  color: var(--white);
+}
+
+.neo-button.dark:hover {
+  background-color: var(--text);
+}
+
+/* --- Badge / Tag --- */
+.neo-badge {
+  display: inline-block;
+  background-color: var(--secondary);
+  color: var(--text);
+  font-weight: 700;
+  font-size: 0.8rem;
+  padding: 5px 12px;
+  border: 2px solid var(--border);
+  border-radius: 20px;
+  margin: 3px 4px 3px 0;
+  box-shadow: 2px 2px 0 var(--shadow-color);
+  letter-spacing: 0.3px;
+}
+
+/* --- Input --- */
+.neo-input {
+  width: 100%;
+  padding: 13px 16px;
+  font-family: var(--font-family);
+  font-size: 1rem;
+  color: var(--text);
+  background: var(--white);
+  border: var(--border-width) solid var(--border);
+  box-shadow: 4px 4px 0 var(--shadow-color);
+  border-radius: var(--radius-sm);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  outline: none;
+}
+
+.neo-input:focus {
+  box-shadow: 2px 2px 0 var(--shadow-color);
+  transform: translate(2px, 2px);
+}
+
+.neo-input::placeholder {
+  color: #9CA3AF;
+}
+
+/* ========================
+   SCROLL ANIMATIONS
+   (Managed by GSAP — these classes are kept for
+    legacy markup but no longer hide elements)
+======================== */
+.reveal,
+.reveal-left,
+.reveal-right {
+  /* opacity and transform are controlled by GSAP, not CSS */
+  opacity: 1;
+  transform: none;
+}
+
+/* Stagger delays for children */
+.stagger > *:nth-child(1) { transition-delay: 0s; }
+.stagger > *:nth-child(2) { transition-delay: 0.1s; }
+.stagger > *:nth-child(3) { transition-delay: 0.2s; }
+.stagger > *:nth-child(4) { transition-delay: 0.3s; }
+.stagger > *:nth-child(5) { transition-delay: 0.4s; }
+
+/* ========================
+   GLOBAL RESPONSIVE
+======================== */
+@media (max-width: 768px) {
+  html { font-size: 15px; }
+
+  .section {
+    padding: 60px 0;
+  }
+
+  .section-title {
+    font-size: 1.8rem;
+  }
+
+  .container {
+    padding: 0 16px;
+  }
+
+  /* Neo buttons: don't overflow on small screens */
+  .neo-button {
+    font-size: 0.95rem;
+    padding: 11px 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  html { font-size: 14px; }
+
+  .section {
+    padding: 50px 0;
+  }
+
+  .neo-card {
+    padding: 18px;
+  }
+}

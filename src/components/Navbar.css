@@ -1,0 +1,166 @@
+/* ═══════════════════════════════════════════
+   NAVBAR
+═══════════════════════════════════════════ */
+
+.navbar {
+  background-color: #ffffff;
+  border-bottom: 3px solid #111827;
+  box-shadow: 0 4px 0 #111827;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+/* ── Container ── */
+.navbar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 32px;       /* generous horizontal padding */
+  height: 72px;          /* fixed height — feels spacious */
+}
+
+/* ── Brand ── */
+.navbar-brand {
+  font-size: 1.65rem;
+  font-weight: 800;
+  color: #111827;
+  text-decoration: none;
+  letter-spacing: -0.5px;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+/* ── Desktop link group ── */
+.navbar-links {
+  display: flex;
+  align-items: center;
+  gap: 40px;             /* spacious gap between links */
+}
+
+/* ── Individual nav link ── */
+.nav-link {
+  color: #111827;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1rem;
+  position: relative;
+  padding-bottom: 4px;
+  white-space: nowrap;
+  transition: color 0.2s ease;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 3px;
+  background-color: var(--primary);
+  border-radius: 2px;
+  transition: width 0.25s ease;
+}
+
+.nav-link:hover { color: var(--primary); }
+.nav-link:hover::after { width: 100%; }
+
+/* ── CTA button in navbar ── */
+.navbar-links .neo-button {
+  padding: 10px 28px;
+  font-size: 0.95rem;
+  border-radius: 6px;
+  box-shadow: 4px 4px 0 #111827;
+}
+
+.navbar-links .neo-button:hover {
+  box-shadow: 6px 6px 0 #111827;
+}
+
+/* ═══════════════════════════════════════════
+   HAMBURGER — hidden on desktop
+═══════════════════════════════════════════ */
+.mobile-menu-btn {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: 3px solid #111827;
+  border-radius: 8px;
+  padding: 8px 10px;
+  cursor: pointer;
+  color: #111827;
+  line-height: 1;
+  transition: background 0.2s, transform 0.15s;
+}
+
+.mobile-menu-btn:hover {
+  background-color: var(--secondary);
+  transform: scale(1.05);
+}
+
+/* ═══════════════════════════════════════════
+   MOBILE DROPDOWN
+═══════════════════════════════════════════ */
+.mobile-menu {
+  display: none;
+  flex-direction: column;
+  background: #ffffff;
+  border-top: 2px solid #e5e7eb;
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.mobile-menu--open {
+  max-height: 300px;
+}
+
+.mobile-nav-link {
+  display: block;
+  padding: 18px 32px;            /* same horizontal as container */
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: #111827;
+  text-decoration: none;
+  border-bottom: 1px solid #f3f4f6;
+  transition: background 0.15s, color 0.15s, padding-left 0.2s;
+}
+
+.mobile-nav-link:last-child {
+  border-bottom: none;
+}
+
+.mobile-nav-link:hover {
+  background: var(--secondary);
+  padding-left: 40px;            /* subtle indent on hover */
+  color: #111827;
+}
+
+/* ═══════════════════════════════════════════
+   BREAKPOINT ≤ 768px  →  switch to mobile
+═══════════════════════════════════════════ */
+@media (max-width: 768px) {
+  .navbar-container {
+    padding: 0 20px;
+    height: 64px;
+  }
+
+  .navbar-brand {
+    font-size: 1.4rem;
+  }
+
+  .navbar-links {
+    display: none;
+  }
+
+  .mobile-menu-btn {
+    display: flex;
+  }
+
+  .mobile-menu {
+    display: flex;
+  }
+}
