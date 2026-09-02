@@ -10,7 +10,7 @@ const Hero = () => {
             <span className="pulse-dot"></span> Web Developer
           </span>
           <h1 className="hero-title">
-            Mengubah Ide Kompleks Menjadi <br/>
+            Mengubah Ide Kompleks Menjadi <br />
             <span className="text-primary">Solusi Digital Nyata.</span>
           </h1>
           <p className="hero-subtitle">
@@ -26,7 +26,7 @@ const Hero = () => {
         <div className="hero-image-wrapper">
           <div className="hero-photo-card">
             <img
-              src="/profil.jpeg"
+              src="/fotoprofile.jpeg"
               alt="Foto Profil"
               className="hero-photo"
             />
