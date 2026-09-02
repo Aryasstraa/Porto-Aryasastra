@@ -73,6 +73,11 @@ p  { font-size: 1.05rem; color: var(--text-muted); }
   padding: 0 24px;
 }
 
+.app-container {
+  overflow-x: hidden;
+  width: 100%;
+}
+
 .section {
   padding: 90px 0;
 }

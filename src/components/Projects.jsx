@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { FaExternalLinkAlt, FaGithub } from 'react-icons/fa';
 import './Projects.css';
 
@@ -36,6 +36,58 @@ const projects = [
 ];
 
 const Projects = () => {
+  const trackRef = useRef(null);
+  const [isDragging, setIsDragging] = useState(false);
+  const [startX, setStartX] = useState(0);
+  const [scrollLeft, setScrollLeft] = useState(0);
+  const [isHovered, setIsHovered] = useState(false);
+
+  // Auto-scroll logic
+  useEffect(() => {
+    let animationId;
+    const track = trackRef.current;
+    
+    const scroll = () => {
+      // Hanya auto-scroll jika tidak sedang didrag dan tidak di-hover
+      if (!isDragging && !isHovered && track) {
+        track.scrollLeft += 1.2; // Kecepatan scroll
+        
+        // Cek jika sudah mencapai akhir dari set pertama (setengah dari total scrollWidth karena kita duplicate 2x)
+        if (track.scrollLeft >= track.scrollWidth / 2) {
+          track.scrollLeft = 0; // Reset ke awal agar infinite
+        }
+      }
+      animationId = requestAnimationFrame(scroll);
+    };
+    
+    animationId = requestAnimationFrame(scroll);
+    return () => cancelAnimationFrame(animationId);
+  }, [isDragging, isHovered]);
+
+  // Drag handlers
+  const onMouseDown = (e) => {
+    setIsDragging(true);
+    setStartX(e.pageX - trackRef.current.offsetLeft);
+    setScrollLeft(trackRef.current.scrollLeft);
+  };
+  
+  const onMouseLeave = () => {
+    setIsDragging(false);
+    setIsHovered(false);
+  };
+  
+  const onMouseUp = () => {
+    setIsDragging(false);
+  };
+  
+  const onMouseMove = (e) => {
+    if (!isDragging) return;
+    e.preventDefault();
+    const x = e.pageX - trackRef.current.offsetLeft;
+    const walk = (x - startX) * 1.5; // Kecepatan drag
+    trackRef.current.scrollLeft = scrollLeft - walk;
+  };
+
   return (
     <section className="section bg-alt projects-section" id="projects">
       <div className="container">
@@ -45,14 +97,29 @@ const Projects = () => {
         </div>
       </div>
 
-      {/* Carousel wrapper — hover pauses animation via CSS */}
-      <div className="carousel-wrapper" data-reveal="fade" data-delay="100">
-        <div className="carousel-track reveal stagger">
-          {/* Duplicate for seamless infinite loop */}
-          {[...projects, ...projects, ...projects].map((project, idx) => (
+      {/* Carousel wrapper */}
+      <div 
+        className="carousel-wrapper" 
+        data-reveal="fade" 
+        data-delay="100"
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={onMouseLeave}
+      >
+        <div 
+          className={`carousel-track ${isDragging ? 'active' : ''} stagger`}
+          ref={trackRef}
+          onMouseDown={onMouseDown}
+          onMouseUp={onMouseUp}
+          onMouseMove={onMouseMove}
+          // Prevent mobile touch from triggering drag state weirdly
+          onTouchStart={() => setIsHovered(true)}
+          onTouchEnd={() => setIsHovered(false)}
+        >
+          {/* Duplikasi array untuk efek infinite loop yang mulus (2x cukup) */}
+          {[...projects, ...projects].map((project, idx) => (
             <div className="project-card neo-card" key={`${project.id}-${idx}`}>
               <div className="project-image-wrapper">
-                <img src={project.image} alt={project.title} className="project-image" />
+                <img src={project.image} alt={project.title} className="project-image" draggable="false" />
                 <span className="project-category neo-badge">{project.category}</span>
               </div>
 

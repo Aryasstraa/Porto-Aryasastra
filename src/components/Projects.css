@@ -25,24 +25,32 @@
   );
 }
 
-/* ── Track — pure CSS infinite scroll ── */
+/* ── Track — JS Draggable ── */
 .carousel-track {
   display: flex;
   gap: 24px;
-  padding: 12px 40px 20px;
-  width: max-content;
-  /* Animation: scroll left. With 3 copies, scroll to 33.333% */
-  animation: carousel-scroll 35s linear infinite;
+  padding: 12px 40px 30px;
+  width: 100%;
+  overflow-x: auto;
+  scroll-behavior: auto;
+  -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+  /* Hide scrollbar */
+  scrollbar-width: none; 
+  -ms-overflow-style: none;
 }
 
-/* Pause when hovering any card inside */
-.carousel-wrapper:hover .carousel-track {
-  animation-play-state: paused;
+.carousel-track::-webkit-scrollbar {
+  display: none;
 }
 
-@keyframes carousel-scroll {
-  0%   { transform: translateX(0); }
-  100% { transform: translateX(-33.333333%); } /* scroll exactly 1 set of the 3 duplicates */
+.carousel-track.active {
+  cursor: grabbing;
+  cursor: -webkit-grabbing;
+}
+
+.carousel-track:not(.active) {
+  cursor: grab;
+  cursor: -webkit-grab;
 }
 
 /* ── Project card — Vertical layout for landscape images ── */
