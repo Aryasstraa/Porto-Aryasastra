@@ -37,32 +37,38 @@ const projects = [
 
 const Projects = () => {
   const trackRef = useRef(null);
+  const scrollPos = useRef(0);
   const [isDragging, setIsDragging] = useState(false);
   const [startX, setStartX] = useState(0);
   const [scrollLeft, setScrollLeft] = useState(0);
-  const [isHovered, setIsHovered] = useState(false);
 
   // Auto-scroll logic
   useEffect(() => {
     let animationId;
     const track = trackRef.current;
+    if (track) {
+      scrollPos.current = track.scrollLeft;
+    }
     
     const scroll = () => {
-      // Hanya auto-scroll jika tidak sedang didrag dan tidak di-hover
-      if (!isDragging && !isHovered && track) {
-        track.scrollLeft += 1.2; // Kecepatan scroll
+      if (!isDragging && track) {
+        scrollPos.current += 1.2; // Kecepatan scroll
         
-        // Cek jika sudah mencapai akhir dari set pertama (setengah dari total scrollWidth karena kita duplicate 2x)
-        if (track.scrollLeft >= track.scrollWidth / 2) {
-          track.scrollLeft = 0; // Reset ke awal agar infinite
+        // Cek jika sudah mencapai akhir dari set pertama (setengah dari total scrollWidth)
+        if (scrollPos.current >= track.scrollWidth / 2) {
+          scrollPos.current = 0; // Reset ke awal agar infinite
         }
+        track.scrollLeft = scrollPos.current;
+      } else if (track) {
+        // Sinkronisasi posisi jika sedang di-drag manual
+        scrollPos.current = track.scrollLeft;
       }
       animationId = requestAnimationFrame(scroll);
     };
     
     animationId = requestAnimationFrame(scroll);
     return () => cancelAnimationFrame(animationId);
-  }, [isDragging, isHovered]);
+  }, [isDragging]);
 
   // Drag handlers
   const onMouseDown = (e) => {
@@ -73,7 +79,6 @@ const Projects = () => {
   
   const onMouseLeave = () => {
     setIsDragging(false);
-    setIsHovered(false);
   };
   
   const onMouseUp = () => {
@@ -102,7 +107,6 @@ const Projects = () => {
         className="carousel-wrapper" 
         data-reveal="fade" 
         data-delay="100"
-        onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={onMouseLeave}
       >
         <div 
@@ -111,9 +115,6 @@ const Projects = () => {
           onMouseDown={onMouseDown}
           onMouseUp={onMouseUp}
           onMouseMove={onMouseMove}
-          // Prevent mobile touch from triggering drag state weirdly
-          onTouchStart={() => setIsHovered(true)}
-          onTouchEnd={() => setIsHovered(false)}
         >
           {/* Duplikasi array untuk efek infinite loop yang mulus (2x cukup) */}
           {[...projects, ...projects].map((project, idx) => (
