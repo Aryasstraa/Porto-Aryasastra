@@ -43,6 +43,11 @@
   display: none;
 }
 
+.carousel-group {
+  display: flex;
+  gap: 24px;
+}
+
 .carousel-track.active {
   cursor: grabbing;
   cursor: -webkit-grabbing;
