@@ -34,6 +34,8 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-x: hidden;
+  width: 100%;
 }
 
 body {
@@ -71,11 +73,6 @@ p  { font-size: 1.05rem; color: var(--text-muted); }
   max-width: 1120px;
   margin: 0 auto;
   padding: 0 24px;
-}
-
-.app-container {
-  overflow-x: hidden;
-  width: 100%;
 }
 
 .section {
