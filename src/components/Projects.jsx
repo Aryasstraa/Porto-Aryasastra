@@ -155,6 +155,8 @@ const Projects = () => {
           onMouseDown={onMouseDown}
           onMouseUp={onMouseUp}
           onMouseMove={onMouseMove}
+          onTouchStart={() => setIsDragging(true)}
+          onTouchEnd={() => setIsDragging(false)}
         >
           {/* 4 Grup duplikat untuk memastikan layar ultrawide tidak kehabisan konten sebelum reset */}
           {renderGroup(true, 1)}
