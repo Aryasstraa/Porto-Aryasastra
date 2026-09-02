@@ -37,6 +37,7 @@ const projects = [
 
 const Projects = () => {
   const trackRef = useRef(null);
+  const groupRef = useRef(null);
   const scrollPos = useRef(0);
   const [isDragging, setIsDragging] = useState(false);
   const [startX, setStartX] = useState(0);
@@ -46,17 +47,21 @@ const Projects = () => {
   useEffect(() => {
     let animationId;
     const track = trackRef.current;
+    const group = groupRef.current;
     if (track) {
       scrollPos.current = track.scrollLeft;
     }
     
     const scroll = () => {
-      if (!isDragging && track) {
+      if (!isDragging && track && group) {
         scrollPos.current += 1.2; // Kecepatan scroll
         
-        // Cek jika sudah mencapai akhir dari set pertama (setengah dari total scrollWidth)
-        if (scrollPos.current >= track.scrollWidth / 2) {
-          scrollPos.current = 0; // Reset ke awal agar infinite
+        // Lebar satu grup penuh (termasuk gap antar grup yang besarnya 24px)
+        const setWidth = group.offsetWidth + 24;
+        
+        // Jika sudah scroll sejauh 1 grup, reset posisinya (dikurangi setWidth agar sangat mulus/tidak ada lompatan pixel)
+        if (scrollPos.current >= setWidth) {
+          scrollPos.current -= setWidth;
         }
         track.scrollLeft = scrollPos.current;
       } else if (track) {
@@ -93,6 +98,41 @@ const Projects = () => {
     trackRef.current.scrollLeft = scrollLeft - walk;
   };
 
+  const renderGroup = (isFirst = false, groupIndex) => (
+    <div className="carousel-group" ref={isFirst ? groupRef : null} key={groupIndex}>
+      {projects.map((project, idx) => (
+        <div className="project-card neo-card" key={`${project.id}-${groupIndex}-${idx}`}>
+          <div className="project-image-wrapper">
+            <img src={project.image} alt={project.title} className="project-image" draggable="false" />
+            <span className="project-category neo-badge">{project.category}</span>
+          </div>
+
+          <div className="project-content">
+            <h3 className="project-title">{project.title}</h3>
+            <p className="project-desc">{project.description}</p>
+
+            <div className="project-tech">
+              {project.tech.map((t, i) => (
+                <span className="tech-tag" key={i}>#{t}</span>
+              ))}
+            </div>
+
+            <div className="project-links">
+              <a href={project.link} className="neo-button secondary" target="_blank" rel="noopener noreferrer">
+                <FaExternalLinkAlt size={13} /> Demo
+              </a>
+              {project.github !== '#' && (
+                <a href={project.github} className="neo-button secondary" target="_blank" rel="noopener noreferrer">
+                  <FaGithub size={13} /> Kode
+                </a>
+              )}
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+
   return (
     <section className="section bg-alt projects-section" id="projects">
       <div className="container">
@@ -116,37 +156,11 @@ const Projects = () => {
           onMouseUp={onMouseUp}
           onMouseMove={onMouseMove}
         >
-          {/* Duplikasi array untuk efek infinite loop yang mulus (2x cukup) */}
-          {[...projects, ...projects].map((project, idx) => (
-            <div className="project-card neo-card" key={`${project.id}-${idx}`}>
-              <div className="project-image-wrapper">
-                <img src={project.image} alt={project.title} className="project-image" draggable="false" />
-                <span className="project-category neo-badge">{project.category}</span>
-              </div>
-
-              <div className="project-content">
-                <h3 className="project-title">{project.title}</h3>
-                <p className="project-desc">{project.description}</p>
-
-                <div className="project-tech">
-                  {project.tech.map((t, i) => (
-                    <span className="tech-tag" key={i}>#{t}</span>
-                  ))}
-                </div>
-
-                <div className="project-links">
-                  <a href={project.link} className="neo-button secondary" target="_blank" rel="noopener noreferrer">
-                    <FaExternalLinkAlt size={13} /> Demo
-                  </a>
-                  {project.github !== '#' && (
-                    <a href={project.github} className="neo-button secondary" target="_blank" rel="noopener noreferrer">
-                      <FaGithub size={13} /> Kode
-                    </a>
-                  )}
-                </div>
-              </div>
-            </div>
-          ))}
+          {/* 4 Grup duplikat untuk memastikan layar ultrawide tidak kehabisan konten sebelum reset */}
+          {renderGroup(true, 1)}
+          {renderGroup(false, 2)}
+          {renderGroup(false, 3)}
+          {renderGroup(false, 4)}
         </div>
       </div>
     </section>
