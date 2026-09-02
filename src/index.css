@@ -41,7 +41,13 @@ body {
   background-color: var(--bg-color);
   color: var(--text);
   line-height: 1.65;
-  overflow-x: clip;
+  overflow-x: clip; /* Keep clip on body as a fallback */
+}
+
+#root {
+  overflow-x: hidden;
+  width: 100%;
+  position: relative;
 }
 
 img {
