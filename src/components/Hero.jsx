@@ -20,8 +20,6 @@ const Hero = () => {
             <a href="#projects" className="neo-button">Lihat Proyek Saya</a>
             <a
               href="/CV-Putu-Agus-Arya-Sastra-Sugiarta.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
               download="CV_Putu_Agus_Arya_Sastra_Sugiarta.pdf"
               className="neo-button secondary"
             >
