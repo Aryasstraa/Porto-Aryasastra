@@ -14,7 +14,7 @@ const Footer = () => {
               <span style={{ color: 'var(--primary)' }}>ARYA</span><span style={{ color: 'var(--dark)' }}>SASTRA</span><span style={{ color: 'var(--primary)' }}>.</span>
             </a>
             <p className="footer-bio">
-              Software Developer yang berfokus pada solusi digital yang presisi, bersih, dan fungsional.
+              Web Developer yang berfokus pada solusi digital yang presisi, bersih, dan fungsional.
             </p>
             <div className="footer-socials">
               <a href="https://github.com/Aryasstraa" target="_blank" rel="noopener noreferrer" className="footer-social-icon" aria-label="GitHub">
