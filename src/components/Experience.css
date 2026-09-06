@@ -5,18 +5,25 @@
 .magang-container {
   max-width: 800px;
   margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.magang-container + .magang-container {
+  margin-top: 28px;
 }
 
 .magang-card {
   padding: 30px;
   background-color: white;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
   will-change: transform;
 }
 
 .magang-card:hover {
-  transform: translate(-4px, -4px) rotate(-1deg);
-  box-shadow: 8px 8px 0 var(--dark);
+  transform: translate(-3px, -3px);
+  box-shadow: 8px 8px 0 #111827;
 }
 
 .magang-header {
@@ -27,16 +34,17 @@
 }
 
 .magang-header h3 {
-  font-size: 1.4rem;
+  font-size: 1.35rem;
   font-weight: 800;
   color: var(--dark);
+  line-height: 1.3;
 }
 
 .magang-company {
-  font-size: 1.1rem;
+  font-size: 1.05rem;
   font-weight: 700;
   color: #f59e0b;
-  margin-bottom: 20px;
+  margin-bottom: 18px;
 }
 
 .magang-points {
@@ -49,10 +57,16 @@
 
 .magang-points li {
   position: relative;
-  padding-left: 20px;
-  font-size: 1rem;
-  line-height: 1.6;
+  padding-left: 22px;
+  font-size: 0.98rem;
+  line-height: 1.65;
   color: #374151;
+}
+
+.magang-points li em {
+  font-style: italic;
+  font-weight: 600;
+  color: #1f2937;
 }
 
 .magang-points li::before {
@@ -62,6 +76,8 @@
   top: 0;
   color: #f59e0b;
   font-weight: bold;
+  font-size: 1.1rem;
+  line-height: 1.5;
 }
 
 /* ── Certifications Grid ── */

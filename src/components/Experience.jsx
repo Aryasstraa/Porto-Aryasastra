@@ -36,13 +36,11 @@ const Experience = () => {
             </div>
             <p className="magang-company">Hat and Cat Studio</p>
             <ul className="magang-points">
-              <li>Membangun mekanik gameplay menggunakan JavaScript dan JSON.</li>
-              <li>Melakukan debugging terstruktur dan optimasi performa script JSON/JS untuk stabilitas game.</li>
+              <li>Membangun mekanik <em>gameplay</em> menggunakan JavaScript dan JSON.</li>
+              <li>Melakukan <em>debugging</em> terstruktur dan optimasi performa <em>script</em> JSON/JS untuk stabilitas <em>game</em>.</li>
             </ul>
           </div>
-        </div>
 
-        <div className="magang-container" data-reveal="up" data-delay="150">
           <div className="neo-card magang-card">
             <div className="magang-header">
               <h3>Praktik Kerja Lapangan (PKL)</h3>
@@ -51,8 +49,8 @@ const Experience = () => {
             <p className="magang-company">Percetakan Kertas Mas</p>
             <ul className="magang-points">
               <li>Merancang desain grafis kebutuhan cetak pelanggan seperti spanduk, brosur, dan materi promosi.</li>
-              <li>Melakukan *editing*, *retouching*, dan pencetakan pasfoto sesuai standar ukuran resmi.</li>
-              <li>Membantu penyusunan dan penataan tata letak dokumen profesional, termasuk *curriculum vitae* (CV) dan administrasi lainnya.</li>
+              <li>Melakukan <em>editing</em>, <em>retouching</em>, dan pencetakan pasfoto sesuai standar ukuran resmi.</li>
+              <li>Membantu penyusunan dan penataan tata letak dokumen profesional, termasuk <em>curriculum vitae</em> (CV) dan administrasi lainnya.</li>
               <li>Mengoperasikan mesin cetak digital serta memastikan kualitas hasil cetak dan pemotongan rapi.</li>
             </ul>
           </div>
