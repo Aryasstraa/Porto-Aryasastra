@@ -3,17 +3,17 @@ import { FaCertificate, FaLaptopCode } from 'react-icons/fa';
 import './Experience.css';
 
 const certifications = [
-  { id: 1, title: 'IC3 GS6 Level 1', year: '2024', issuer: 'Certiport' },
-  { id: 2, title: 'IT Specialist – Databases', year: '2026', issuer: 'Certiport' },
-  { id: 3, title: 'TOEIC Listening and Reading (Score: 365)', year: '2026', issuer: 'PT International Test Center' },
+  { id: 1, title: 'IC3 GS6 Level 1', year: '2024', issuer: 'Certiport', pdf: '/IC3.pdf' },
+  { id: 2, title: 'IT Specialist – Databases', year: '2026', issuer: 'Certiport', pdf: '/Database.pdf' },
+  { id: 3, title: 'TOEIC Listening and Reading (Score: 365)', year: '2026', issuer: 'PT International Test Center', pdf: '/Sertifikat Skor Toeic.pdf' },
 ];
 
 const trainings = [
-  { id: 1, title: 'Data Classification and Summarization', year: '2026', issuer: 'Hacktiv8' },
-  { id: 2, title: 'Belajar Dasar Pemrograman JavaScript', year: '2024', issuer: 'Dicoding' },
-  { id: 3, title: 'AI FOR SOFTWARE ENGINEER', year: '2024', issuer: 'MySkill' },
-  { id: 4, title: 'SAP Analytics Cloud and SAP Build Apps Online Training Session', year: '2024', issuer: 'ASEAN Data Science Explorers' },
-  { id: 5, title: 'Belajar Dasar Git dengan GitHub', year: '2023', issuer: 'Dicoding' },
+  { id: 1, title: 'Data Classification and Summarization', year: '2026', issuer: 'Hacktiv8', pdf: '/Data Classification and Summarization.pdf' },
+  { id: 2, title: 'Belajar Dasar Pemrograman JavaScript', year: '2024', issuer: 'Dicoding', pdf: '/Dasar JS.pdf' },
+  { id: 3, title: 'AI FOR SOFTWARE ENGINEER', year: '2024', issuer: 'MySkill', pdf: '/E-Learning Artificial Intelligence Myskill.pdf' },
+  { id: 4, title: 'SAP Analytics Cloud and SAP Build Apps Online Training Session', year: '2024', issuer: 'ASEAN Data Science Explorers', pdf: '/SAP Data Science.pdf' },
+  { id: 5, title: 'Belajar Dasar Git dengan GitHub', year: '2023', issuer: 'Dicoding', pdf: '/Github Sertif dicoding.pdf' },
 ];
 
 const Experience = () => {
@@ -49,11 +49,15 @@ const Experience = () => {
 
         <div className="cert-grid">
           {certifications.map((c, i) => (
-            <div
+            <a
+              href={c.pdf}
+              target="_blank"
+              rel="noopener noreferrer"
               className="cert-card neo-card"
               key={`cert-${c.id}`}
               data-reveal="up"
               data-delay={i * 80}
+              style={{ textDecoration: 'none' }}
             >
               <div className="cert-icon-wrapper">
                 <FaCertificate size={24} color="#f59e0b" />
@@ -64,15 +68,19 @@ const Experience = () => {
                 <span className="cert-year">{c.year}</span>
               </div>
               <div className="cert-hover-hint">Lihat Sertifikat</div>
-            </div>
+            </a>
           ))}
 
           {trainings.map((t, i) => (
-            <div
+            <a
+              href={t.pdf}
+              target="_blank"
+              rel="noopener noreferrer"
               className="cert-card neo-card training-card"
               key={`train-${t.id}`}
               data-reveal="up"
               data-delay={(certifications.length + i) * 80}
+              style={{ textDecoration: 'none' }}
             >
               <div className="cert-icon-wrapper">
                 <FaLaptopCode size={24} color="#2497F3" />
@@ -83,7 +91,7 @@ const Experience = () => {
                 <span className="cert-year">{t.year}</span>
               </div>
               <div className="cert-hover-hint">Lihat Sertifikat</div>
-            </div>
+            </a>
           ))}
         </div>
 
