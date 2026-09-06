@@ -1,0 +1,455 @@
+/* ========================
+   PROJECT MODAL BACKDROP & DIALOG
+======================== */
+.project-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(6, 60, 158, 0.45);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  animation: modalFadeIn 0.25s ease-out forwards;
+}
+
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.project-modal-dialog {
+  background: #ffffff;
+  width: 100%;
+  max-width: 920px;
+  max-height: 88vh;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  border-radius: 16px;
+  border: 3px solid #111827;
+  box-shadow: 10px 10px 0 #111827;
+  overflow: hidden;
+  animation: modalScaleUp 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes modalScaleUp {
+  from {
+    transform: scale(0.95) translateY(10px);
+    opacity: 0.8;
+  }
+  to {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
+}
+
+/* ========================
+   TOP BAR
+======================== */
+.modal-top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 24px;
+  border-bottom: 3px solid #111827;
+  background-color: #F8FAFC;
+  flex-shrink: 0;
+}
+
+.modal-title-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.modal-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background-color: var(--primary);
+  color: white;
+  font-size: 0.75rem;
+  width: fit-content;
+  box-shadow: 2px 2px 0 #111827;
+}
+
+.modal-main-title {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--text);
+  margin: 0;
+  line-height: 1.2;
+}
+
+.modal-back-btn {
+  padding: 8px 16px;
+  font-size: 0.88rem;
+  background-color: #ffffff;
+  color: var(--text);
+  border: 2px solid #111827;
+  box-shadow: 3px 3px 0 #111827;
+}
+
+.modal-close-btn {
+  background-color: #fee2e2;
+  color: #dc2626;
+  border: 2px solid #111827;
+  box-shadow: 3px 3px 0 #111827;
+  border-radius: 8px;
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
+}
+
+.modal-close-btn:hover {
+  background-color: #fca5a5;
+  transform: translate(-2px, -2px);
+  box-shadow: 4px 4px 0 #111827;
+}
+
+.modal-close-btn:active {
+  transform: translate(1px, 1px);
+  box-shadow: 2px 2px 0 #111827;
+}
+
+/* ========================
+   MODAL BODY SCROLL
+======================== */
+.modal-body-scroll {
+  padding: 24px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  max-height: calc(88vh - 80px);
+}
+
+.modal-body-scroll::-webkit-scrollbar {
+  width: 8px;
+}
+
+.modal-body-scroll::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+.modal-body-scroll::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+
+.modal-body-scroll::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* ========================
+   ALL PROJECTS GRID (LIST VIEW)
+======================== */
+.all-projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
+}
+
+.modal-project-card {
+  background: #ffffff;
+  border: 3px solid #111827;
+  box-shadow: 5px 5px 0 #111827;
+  border-radius: 12px;
+  overflow: hidden;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.modal-project-card:hover {
+  transform: translate(-3px, -3px);
+  box-shadow: 8px 8px 0 #111827;
+}
+
+.modal-card-img-wrap {
+  position: relative;
+  width: 100%;
+  height: 160px;
+  overflow: hidden;
+  border-bottom: 2px solid #111827;
+}
+
+.modal-card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.modal-project-card:hover .modal-card-img {
+  transform: scale(1.05);
+}
+
+.modal-card-badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 0.7rem;
+  background-color: var(--primary);
+  color: #ffffff;
+  box-shadow: 2px 2px 0 #111827;
+}
+
+.modal-card-content {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.modal-card-title {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--text);
+  margin-bottom: 6px;
+  line-height: 1.3;
+}
+
+.modal-card-desc {
+  font-size: 0.88rem;
+  color: #4b5563;
+  margin-bottom: 12px;
+  line-height: 1.5;
+  flex-grow: 1;
+}
+
+.modal-card-tech {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+
+.modal-card-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: auto;
+}
+
+.btn-detail-trigger {
+  flex-grow: 1;
+  padding: 8px 12px;
+  font-size: 0.82rem;
+  box-shadow: 2px 2px 0 #111827;
+}
+
+.btn-demo-direct {
+  padding: 8px 12px;
+  font-size: 0.82rem;
+  box-shadow: 2px 2px 0 #111827;
+}
+
+/* ========================
+   PROJECT DETAIL VIEW (1 PROYEK)
+======================== */
+.project-detail-view {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.detail-image-container {
+  position: relative;
+  width: 100%;
+  max-height: 360px;
+  overflow: hidden;
+  border-radius: 12px;
+  border: 3px solid #111827;
+  box-shadow: 6px 6px 0 #111827;
+  padding: 0;
+}
+
+.detail-hero-img {
+  width: 100%;
+  max-height: 360px;
+  object-fit: cover;
+  display: block;
+}
+
+.detail-cat-badge {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  background-color: var(--primary);
+  color: #ffffff;
+  font-size: 0.8rem;
+  font-weight: 700;
+  box-shadow: 3px 3px 0 #111827;
+}
+
+.detail-header-info {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.detail-title {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: var(--text);
+  line-height: 1.25;
+}
+
+.detail-tech-list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.detail-tech-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--primary);
+  background-color: #EBF5FF;
+  border: 2px solid #111827;
+  box-shadow: 2px 2px 0 #111827;
+  padding: 4px 10px;
+  border-radius: 6px;
+}
+
+.detail-year-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #4b5563;
+  background-color: #f1f5f9;
+  border: 2px solid #111827;
+  box-shadow: 2px 2px 0 #111827;
+  padding: 4px 10px;
+  border-radius: 6px;
+}
+
+/* Action Bar */
+.detail-action-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 16px 0;
+  border-top: 2px dashed #cbd5e1;
+  border-bottom: 2px dashed #cbd5e1;
+}
+
+.detail-demo-btn {
+  background-color: #10b981;
+  color: #ffffff;
+  font-size: 1.05rem;
+  padding: 12px 24px;
+  border: 3px solid #111827;
+  box-shadow: 4px 4px 0 #111827;
+}
+
+.detail-demo-btn:hover {
+  background-color: #059669;
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 #111827;
+}
+
+/* Sections */
+.detail-section-block {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.detail-section-title {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.detail-long-desc {
+  font-size: 0.98rem;
+  color: #374151;
+  line-height: 1.7;
+}
+
+/* Feature List */
+.detail-feature-list {
+  list-style: none;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+  padding: 0;
+  margin: 0;
+}
+
+.detail-feature-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  background-color: #F8FAFC;
+  border: 2px solid #111827;
+  box-shadow: 3px 3px 0 #111827;
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: #1e293b;
+  line-height: 1.4;
+}
+
+.feature-icon {
+  color: #10b981;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+/* ========================
+   RESPONSIVE
+======================== */
+@media (max-width: 768px) {
+  .project-modal-dialog {
+    max-height: 92vh;
+  }
+
+  .modal-top-bar {
+    padding: 14px 18px;
+  }
+
+  .modal-body-scroll {
+    padding: 16px;
+  }
+
+  .detail-image-container {
+    max-height: 220px;
+  }
+
+  .detail-title {
+    font-size: 1.3rem;
+  }
+
+  .detail-action-bar {
+    flex-direction: column;
+  }
+
+  .detail-demo-btn,
+  .detail-action-bar .neo-button {
+    width: 100%;
+    justify-content: center;
+  }
+}

@@ -169,6 +169,51 @@
   box-shadow: 3px 3px 0 #111827;
 }
 
+.project-image-wrapper {
+  cursor: pointer;
+}
+
+.clickable-title {
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.clickable-title:hover {
+  color: var(--primary);
+}
+
+.btn-card-detail {
+  background-color: #ffffff;
+  color: var(--text);
+  border: 2px solid #111827;
+}
+
+.btn-card-detail:hover {
+  background-color: #F0F7FF;
+  color: var(--primary);
+}
+
+/* ── Action Footer (Lihat Semua Proyek Button) ── */
+.projects-action-footer {
+  margin-top: 36px;
+  display: flex;
+  justify-content: center;
+}
+
+.btn-view-all-projects {
+  font-size: 1.02rem;
+  padding: 14px 28px;
+  gap: 10px;
+  box-shadow: 5px 5px 0 #111827;
+  border-radius: 8px;
+  background-color: var(--primary);
+}
+
+.btn-view-all-projects:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 7px 7px 0 #111827;
+}
+
 /* ── RESPONSIVE ── */
 @media (max-width: 768px) {
   .project-card {
@@ -177,6 +222,13 @@
 
   .project-image-wrapper {
     height: 180px;
+  }
+
+  .btn-view-all-projects {
+    font-size: 0.95rem;
+    padding: 12px 20px;
+    width: 90%;
+    max-width: 320px;
   }
 }
 
