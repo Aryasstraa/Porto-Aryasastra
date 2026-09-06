@@ -14,11 +14,19 @@ const Hero = () => {
             <span className="text-primary">Solusi Digital Nyata.</span>
           </h1>
           <p className="hero-subtitle">
-            Halo, Saya Arya Sastra. Berfokus pada pengembangan web menggunakan Laravel dan Next.js. Saya secara proaktif memperluas keterampilan teknis dengan mengeksplorasi Keamanan Siber (Cyber Security), Otomasi AI (AI Automation), Analisis Data (Data Analytics), dan Augmented Reality (AR).
+            Halo, saya Arya Sastra. Web Developer lulusan INSTIKI yang mendalami Laravel, React.js, integrasi LLM, serta memiliki ketertarikan pada Data Analytics dan Cyber Security.
           </p>
           <div className="hero-actions">
             <a href="#projects" className="neo-button">Lihat Proyek Saya</a>
-            <a href="/CV%20-%20Putu%20Agus%20Arya%20Sastra%20Sugiarta.pdf" download="CV_Putu_Agus_Arya_Sastra_Sugiarta.pdf" className="neo-button secondary">⬇ Download CV</a>
+            <a 
+              href="/CV-Putu-Agus-Arya-Sastra-Sugiarta.pdf" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              download="CV_Putu_Agus_Arya_Sastra_Sugiarta.pdf" 
+              className="neo-button secondary"
+            >
+              ⬇ Download CV
+            </a>
             <a href="#contact" className="neo-button dark">Hubungi Saya</a>
           </div>
         </div>

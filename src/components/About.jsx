@@ -1,8 +1,7 @@
 import React from 'react';
 import './About.css';
 
-const bio = `Sebagai fresh graduate, saya fokus mengembangkan portofolio yang solid melalui proyek mandiri dan eksplorasi teknologi terbaru. Saya memiliki ketertarikan kuat pada Web Development, Cyber Security, Artificial Intelligence, dan Augmented Reality, serta komitmen penuh untuk terus meningkatkan keahlian (up-skilling).`;
-
+const bio = `Fresh graduate Informatika dari INSTIKI dengan fokus pada pengembangan web full-stack menggunakan Laravel, React.js, dan Node.js. Berpengalaman dalam merancang UI/UX, mengelola basis data, hingga mengintegrasikan model LLM via OpenRouter API. Memiliki pemahaman dasar di bidang Data Analytics dan Cyber Security, serta siap berkontribusi secara profesional di industri teknologi.`;
 const education = [
   { id: 1, level: 'Multimedia', period: '2019 — 2022', school: 'SMK Negeri 1 Tegallalang' },
   { id: 2, level: 'S1 Informatika', period: '2022 — 2026', school: 'Institut Bisnis dan Teknologi Indonesia' },
