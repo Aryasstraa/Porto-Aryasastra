@@ -42,6 +42,22 @@ const Experience = () => {
           </div>
         </div>
 
+        <div className="magang-container" data-reveal="up" data-delay="150">
+          <div className="neo-card magang-card">
+            <div className="magang-header">
+              <h3>Praktik Kerja Lapangan (PKL)</h3>
+              <span className="neo-badge magang-year" style={{ backgroundColor: '#f59e0b', color: '#111' }}>2021</span>
+            </div>
+            <p className="magang-company">Percetakan Kertas Mas</p>
+            <ul className="magang-points">
+              <li>Merancang desain grafis kebutuhan cetak pelanggan seperti spanduk, brosur, dan materi promosi.</li>
+              <li>Melakukan *editing*, *retouching*, dan pencetakan pasfoto sesuai standar ukuran resmi.</li>
+              <li>Membantu penyusunan dan penataan tata letak dokumen profesional, termasuk *curriculum vitae* (CV) dan administrasi lainnya.</li>
+              <li>Mengoperasikan mesin cetak digital serta memastikan kualitas hasil cetak dan pemotongan rapi.</li>
+            </ul>
+          </div>
+        </div>
+
         {/* SERTIFIKASI SECTION */}
         <div className="section-header text-center" style={{ marginTop: '80px' }} data-reveal="up">
           <span className="section-label" style={{ color: 'var(--primary)' }}>Validasi Skill</span>
