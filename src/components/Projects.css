@@ -232,3 +232,21 @@
   }
 }
 
+@media (max-width: 480px) {
+  .project-card {
+    width: 280px;
+  }
+
+  .project-links {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .project-links .neo-button {
+    flex: 1 1 auto;
+    padding: 8px 10px;
+    font-size: 0.8rem;
+    justify-content: center;
+  }
+}
+

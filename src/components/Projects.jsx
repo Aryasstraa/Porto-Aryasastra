@@ -8,8 +8,18 @@ const projects = [
     id: 1,
     title: 'Aplikasi Tata Surya Edukatif (AR)',
     category: 'Proyek Interaktif & AR (Skripsi)',
-    year: '2024',
+    year: '2026',
     image: '/TataSurya.jpeg',
+    images: [
+      '/TataSurya.jpeg',
+      '/TataSurya-2.jpeg',
+      '/TataSurya-3.jpeg',
+      '/TataSurya-4.jpeg',
+      '/TataSurya-5.jpeg',
+      '/TataSurya-6.jpeg',
+      '/TataSurya-7.jpeg'
+    ],
+    demoLabel: 'Demo Video & APK',
     description: 'Aplikasi edukasi pengenalan tata surya interaktif yang dibangun menggunakan teknologi Augmented Reality.',
     longDescription: 'Aplikasi edukasi interaktif berbasis mobile Augmented Reality (AR) yang dirancang untuk memvisualisasikan sistem tata surya secara 3 dimensi interaktif. Menggabungkan teknologi marker tracking untuk menghadirkan objek planet virtual tepat di hadapan pengguna, lengkap dengan rotasi, orbit revolusi, skala perbandingan, dan informasi audio-visual interaktif.',
     features: [
@@ -28,6 +38,14 @@ const projects = [
     category: 'Proyek Mandiri',
     year: '2024',
     image: '/microtools.png',
+    images: [
+      '/microtools.png',
+      '/microtools-2.png',
+      '/microtools-3.png',
+      '/microtools-4.png',
+      '/microtools-5.png'
+    ],
+    demoLabel: 'Buka Web',
     description: 'Platform alat bantu online untuk konversi file (seperti PNG ke PDF) dan utilitas ringan lainnya untuk produktivitas.',
     longDescription: 'Platform web serbaguna yang dirancang untuk mempercepat produktivitas harian pengguna internet melalui kumpulan alat bantu instan, responsif, dan tanpa perlu instalasi aplikasi tambahan. Berfokus pada kemudahan pengguna dan kecepatan proses konversi dokumen.',
     features: [
@@ -46,6 +64,13 @@ const projects = [
     category: 'Proyek Mandiri',
     year: '2024',
     image: '/academic.png',
+    images: [
+      '/academic.png',
+      '/academic-2.png',
+      '/academic-3.png',
+      '/academic-4.png'
+    ],
+    demoLabel: 'Buka Web',
     description: 'Website utilitas khusus mahasiswa yang membantu menghitung skor SUS, kalkulasi IPK, dan analisis data akademis.',
     longDescription: 'Aplikasi web utilitas akademis khusus mahasiswa, dosen, dan peneliti UI/UX guna mempermudah kalkulasi metrik penting penelitian perkuliahan. Mengotomatisasi proses evaluasi kuantitatif seperti penghitungan System Usability Scale (SUS) otomatis dan simulasi target Indeks Prestasi Kumulatif (IPK).',
     features: [
@@ -105,14 +130,14 @@ const Projects = () => {
     if (track) {
       scrollPos.current = track.scrollLeft;
     }
-    
+
     const scroll = () => {
       if (!isDragging && track && group) {
         scrollPos.current += 1.2; // Kecepatan scroll
-        
+
         // Lebar satu grup penuh (termasuk gap antar grup yang besarnya 24px)
         const setWidth = group.offsetWidth + 24;
-        
+
         // Jika sudah scroll sejauh 1 grup, reset posisinya (dikurangi setWidth agar sangat mulus/tidak ada lompatan pixel)
         if (scrollPos.current >= setWidth) {
           scrollPos.current -= setWidth;
@@ -124,7 +149,7 @@ const Projects = () => {
       }
       animationId = requestAnimationFrame(scroll);
     };
-    
+
     animationId = requestAnimationFrame(scroll);
     return () => cancelAnimationFrame(animationId);
   }, [isDragging]);
@@ -135,15 +160,15 @@ const Projects = () => {
     setStartX(e.pageX - trackRef.current.offsetLeft);
     setScrollLeft(trackRef.current.scrollLeft);
   };
-  
+
   const onMouseLeave = () => {
     setIsDragging(false);
   };
-  
+
   const onMouseUp = () => {
     setIsDragging(false);
   };
-  
+
   const onMouseMove = (e) => {
     if (!isDragging) return;
     e.preventDefault();
@@ -156,7 +181,7 @@ const Projects = () => {
     <div className="carousel-group" ref={isFirst ? groupRef : null} key={groupIndex}>
       {projects.map((project, idx) => (
         <div className="project-card neo-card" key={`${project.id}-${groupIndex}-${idx}`}>
-          <div 
+          <div
             className="project-image-wrapper"
             onClick={() => handleOpenDetail(project)}
             title="Klik untuk melihat detail proyek"
@@ -166,7 +191,7 @@ const Projects = () => {
           </div>
 
           <div className="project-content">
-            <h3 
+            <h3
               className="project-title clickable-title"
               onClick={() => handleOpenDetail(project)}
               title="Klik untuk melihat detail proyek"
@@ -182,7 +207,7 @@ const Projects = () => {
             </div>
 
             <div className="project-links">
-              <button 
+              <button
                 type="button"
                 className="neo-button secondary btn-card-detail"
                 onClick={(e) => {
@@ -193,10 +218,10 @@ const Projects = () => {
                 <FaInfoCircle size={13} /> Detail
               </button>
 
-              <a 
-                href={project.link} 
-                className="neo-button secondary" 
-                target="_blank" 
+              <a
+                href={project.link}
+                className="neo-button secondary"
+                target="_blank"
                 rel="noopener noreferrer"
                 onClick={(e) => e.stopPropagation()}
               >
@@ -204,10 +229,10 @@ const Projects = () => {
               </a>
 
               {project.github !== '#' && (
-                <a 
-                  href={project.github} 
-                  className="neo-button secondary" 
-                  target="_blank" 
+                <a
+                  href={project.github}
+                  className="neo-button secondary"
+                  target="_blank"
                   rel="noopener noreferrer"
                   onClick={(e) => e.stopPropagation()}
                 >
@@ -231,13 +256,13 @@ const Projects = () => {
       </div>
 
       {/* Carousel wrapper */}
-      <div 
-        className="carousel-wrapper" 
-        data-reveal="fade" 
+      <div
+        className="carousel-wrapper"
+        data-reveal="fade"
         data-delay="100"
         onMouseLeave={onMouseLeave}
       >
-        <div 
+        <div
           className={`carousel-track ${isDragging ? 'active' : ''} stagger`}
           ref={trackRef}
           onMouseDown={onMouseDown}
@@ -256,8 +281,8 @@ const Projects = () => {
 
       {/* Action Button to View All Projects & Details */}
       <div className="projects-action-footer text-center" data-reveal="up" data-delay="150">
-        <button 
-          type="button" 
+        <button
+          type="button"
           className="neo-button primary btn-view-all-projects"
           onClick={handleOpenAllProjects}
         >
@@ -266,7 +291,7 @@ const Projects = () => {
       </div>
 
       {/* Project Modal (Catalog & Single Detail) */}
-      <ProjectModal 
+      <ProjectModal
         isOpen={isModalOpen}
         onClose={handleCloseModal}
         projects={projects}

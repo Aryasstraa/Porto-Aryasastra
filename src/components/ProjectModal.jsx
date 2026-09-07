@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   FaTimes, 
   FaArrowLeft, 
@@ -8,7 +8,10 @@ import {
   FaRocket,
   FaThLarge,
   FaCode,
-  FaCalendarAlt
+  FaCalendarAlt,
+  FaChevronLeft,
+  FaChevronRight,
+  FaImages
 } from 'react-icons/fa';
 import './ProjectModal.css';
 
@@ -21,7 +24,47 @@ const ProjectModal = ({
   onSelectProject, 
   onBackToList 
 }) => {
-  // Handle ESC key and disable body scroll when open
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [touchStartX, setTouchStartX] = useState(null);
+
+  // Compute images list for selected project
+  const currentImages = (selectedProject?.images && selectedProject.images.length > 0)
+    ? selectedProject.images
+    : (selectedProject?.image ? [selectedProject.image] : []);
+
+  // Reset slide index when project changes
+  useEffect(() => {
+    setCurrentImageIndex(0);
+  }, [selectedProject]);
+
+  const handlePrevImage = (e) => {
+    if (e) e.stopPropagation();
+    setCurrentImageIndex((prev) => (prev === 0 ? currentImages.length - 1 : prev - 1));
+  };
+
+  const handleNextImage = (e) => {
+    if (e) e.stopPropagation();
+    setCurrentImageIndex((prev) => (prev === currentImages.length - 1 ? 0 : prev + 1));
+  };
+
+  // Touch swipe support for mobile
+  const handleTouchStart = (e) => {
+    setTouchStartX(e.touches[0].clientX);
+  };
+
+  const handleTouchEnd = (e) => {
+    if (touchStartX === null) return;
+    const touchEndX = e.changedTouches[0].clientX;
+    const diff = touchStartX - touchEndX;
+    if (diff > 40) {
+      handleNextImage();
+    } else if (diff < -40) {
+      handlePrevImage();
+    }
+    setTouchStartX(null);
+  };
+
+  // Handle ESC key and keyboard arrows, disable body scroll when open
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.key === 'Escape') {
@@ -29,6 +72,12 @@ const ProjectModal = ({
           onBackToList();
         } else {
           onClose();
+        }
+      } else if (viewMode === 'detail' && selectedProject && currentImages.length > 1) {
+        if (e.key === 'ArrowLeft') {
+          handlePrevImage();
+        } else if (e.key === 'ArrowRight') {
+          handleNextImage();
         }
       }
     };
@@ -44,7 +93,7 @@ const ProjectModal = ({
       document.body.style.overflow = '';
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [isOpen, viewMode, selectedProject, onBackToList, onClose]);
+  }, [isOpen, viewMode, selectedProject, onBackToList, onClose, currentImages.length]);
 
   if (!isOpen) return null;
 
@@ -95,6 +144,11 @@ const ProjectModal = ({
                   <div className="modal-card-img-wrap">
                     <img src={proj.image} alt={proj.title} className="modal-card-img" />
                     <span className="modal-card-badge neo-badge">{proj.category}</span>
+                    {proj.images && proj.images.length > 1 && (
+                      <span className="modal-card-images-count neo-badge">
+                        <FaImages size={10} /> {proj.images.length} Gambar
+                      </span>
+                    )}
                   </div>
                   <div className="modal-card-content">
                     <h3 className="modal-card-title">{proj.title}</h3>
@@ -108,6 +162,7 @@ const ProjectModal = ({
 
                     <div className="modal-card-actions">
                       <button 
+                        type="button"
                         className="neo-button primary btn-detail-trigger"
                         onClick={(e) => {
                           e.stopPropagation();
@@ -123,7 +178,7 @@ const ProjectModal = ({
                         className="neo-button secondary btn-demo-direct"
                         onClick={(e) => e.stopPropagation()}
                       >
-                        <FaExternalLinkAlt size={12} /> Demo
+                        <FaExternalLinkAlt size={12} /> {proj.demoLabel || 'Demo'}
                       </a>
                     </div>
                   </div>
@@ -131,16 +186,83 @@ const ProjectModal = ({
               ))}
             </div>
           ) : selectedProject ? (
-            /* DETAIL VIEW (1 Proyek Terpilih) */
+            /* DETAIL VIEW (1 Proyek Terpilih dengan Slider Gambar) */
             <div className="project-detail-view">
-              {/* Hero Image Container */}
-              <div className="detail-image-container neo-card">
-                <img 
-                  src={selectedProject.image} 
-                  alt={selectedProject.title} 
-                  className="detail-hero-img" 
-                />
-                <span className="detail-cat-badge neo-badge">{selectedProject.category}</span>
+              {/* Hero Image Slider Container */}
+              <div className="detail-slider-wrapper">
+                <div 
+                  className="detail-image-container neo-card"
+                  onTouchStart={handleTouchStart}
+                  onTouchEnd={handleTouchEnd}
+                >
+                  <img 
+                    src={currentImages[currentImageIndex] || selectedProject.image} 
+                    alt={`${selectedProject.title} - Screenshot ${currentImageIndex + 1}`} 
+                    className="detail-hero-img" 
+                  />
+
+                  <span className="detail-cat-badge neo-badge">{selectedProject.category}</span>
+
+                  {currentImages.length > 1 && (
+                    <>
+                      {/* Counter Badge */}
+                      <span className="detail-slider-counter neo-badge">
+                        <FaImages size={11} /> {currentImageIndex + 1} / {currentImages.length}
+                      </span>
+
+                      {/* Navigation Arrows */}
+                      <button 
+                        type="button"
+                        className="slider-nav-btn prev-btn" 
+                        onClick={handlePrevImage}
+                        aria-label="Screenshot sebelumnya"
+                      >
+                        <FaChevronLeft size={16} />
+                      </button>
+                      <button 
+                        type="button"
+                        className="slider-nav-btn next-btn" 
+                        onClick={handleNextImage}
+                        aria-label="Screenshot selanjutnya"
+                      >
+                        <FaChevronRight size={16} />
+                      </button>
+
+                      {/* Pagination Dots */}
+                      <div className="slider-dots">
+                        {currentImages.map((_, idx) => (
+                          <button
+                            key={idx}
+                            type="button"
+                            className={`slider-dot ${idx === currentImageIndex ? 'active' : ''}`}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setCurrentImageIndex(idx);
+                            }}
+                            aria-label={`Pindah ke screenshot ke-${idx + 1}`}
+                          />
+                        ))}
+                      </div>
+                    </>
+                  )}
+                </div>
+
+                {/* Thumbnails row if multiple screenshots */}
+                {currentImages.length > 1 && (
+                  <div className="detail-thumbnails-strip">
+                    {currentImages.map((imgSrc, idx) => (
+                      <button
+                        key={idx}
+                        type="button"
+                        className={`thumb-btn ${idx === currentImageIndex ? 'active' : ''}`}
+                        onClick={() => setCurrentImageIndex(idx)}
+                        aria-label={`Pilih screenshot ${idx + 1}`}
+                      >
+                        <img src={imgSrc} alt={`Thumbnail ${idx + 1}`} className="thumb-img" />
+                      </button>
+                    ))}
+                  </div>
+                )}
               </div>
 
               {/* Title & Meta Info */}
@@ -168,7 +290,7 @@ const ProjectModal = ({
                   rel="noopener noreferrer" 
                   className="neo-button primary detail-demo-btn"
                 >
-                  <FaRocket size={16} /> Buka Demo Langsung
+                  <FaRocket size={16} /> {selectedProject.demoLabel || 'Buka Demo Langsung'}
                   <FaExternalLinkAlt size={12} style={{ marginLeft: '4px' }} />
                 </a>
 
