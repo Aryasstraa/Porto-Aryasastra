@@ -15,6 +15,7 @@ const trainings = [
   { id: 4, title: 'SAP Analytics Cloud and SAP Build Apps Online Training Session', year: '2024', issuer: 'ASEAN Data Science Explorers', pdf: '/SAP Data Science.pdf' },
   { id: 5, title: 'Belajar Dasar Git dengan GitHub', year: '2023', issuer: 'Dicoding', pdf: '/Github Sertif dicoding.pdf' },
   { id: 6, title: 'Belajar Dasar AI', year: '2026', issuer: 'Dicoding', pdf: '/Belajar Dasar AI.pdf' },
+  { id: 7, title: 'Introduction to Cybersecurity', year: '2026', issuer: 'Cisco Networking Academy', pdf: '/Cybersecurity.pdf' },
 ];
 
 const Experience = () => {
